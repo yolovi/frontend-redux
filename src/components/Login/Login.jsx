@@ -26,26 +26,23 @@ const Login = () => {
   };
 
   return (
-    <div>
-      Login
-      <form onSubmit={onSubmit}>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          placeholder="Name"
-          onChange={onChange}
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          placeholder="Password"
-          onChange={onChange}
-        />
-        <button>Login</button>
-      </form>
-    </div>
+    <form onSubmit={onSubmit}>
+      <input
+        type="email"
+        name="email"
+        value={email}
+        placeholder="Name"
+        onChange={onChange}
+      />
+      <input
+        type="password"
+        name="password"
+        value={password}
+        placeholder="Password"
+        onChange={onChange}
+      />
+      <button>Login</button>
+    </form>
   );
 };
 
