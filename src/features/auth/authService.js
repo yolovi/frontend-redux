@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/users";
+// const API_URL = "http://localhost:8080/users"; //mongo magnolitos
+const API_URL = "http://localhost:3000/users"; // sequelize
 
 const register = async (userData) => {
   const res = await axios.post(API_URL, userData);
