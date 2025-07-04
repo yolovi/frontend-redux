@@ -18,7 +18,7 @@ const Posts = () => {
 
   return (
     <div>
-      <h3>Posts</h3>
+      <h3>Posts Padre</h3>
       <Post />
     </div>
   );

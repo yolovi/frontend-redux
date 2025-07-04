@@ -7,6 +7,11 @@ import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Profile from "./components/Profile/Profile";
 import PostDetail from "./components/PostDetail/PostDetail";
+import Search from "./components/Search/Search";
+import PrivateZone from "./components/Guards/PrivateZone";
+import AdminZone from "./components/Guards/AdminZone";
+import Admin from "./components/Admin/Admin";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   return (
@@ -18,8 +23,27 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/id/:id" element={<PostDetail />} />
+          <Route path="/search/:postName" element={<Search />} />
+          <Route path="*" element={<NotFound />} />
+
+          {/* <Route path="/admin" element={<Admin />} /> */}
+          <Route
+            path="/profile"
+            element={
+              <PrivateZone>
+                <Profile />
+              </PrivateZone>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AdminZone>
+                <Admin />
+              </AdminZone>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
