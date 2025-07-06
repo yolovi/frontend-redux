@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import postService from "./postService";
 
+//INITALSTATE
 const initialState = {
   posts: [],
   post: {},
   isLoading: false,
 };
 
+//THUNK FUNCTIONS
 export const getAll = createAsyncThunk("post/getAll", async () => {
   try {
     return await postService.getAll();
@@ -34,10 +36,24 @@ export const getPostByName = createAsyncThunk(
   }
 );
 
+export const deletePost = createAsyncThunk("post/deletePost", async (id) => {
+  try {
+    await postService.deletePost(id);
+    return { id }; // devolvemos manualmente el id --> porque backend solo devuelve un mensaje
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+//SLICE
 export const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      state.isLoading = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAll.fulfilled, (state, action) => {
@@ -55,6 +71,12 @@ export const postSlice = createSlice({
         state.posts = Array.isArray(action.payload) //SI es un array
           ? action.payload //guarda el array
           : [action.payload]; // si no lo es --> Envuelve el objeto en un array
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.posts = state.posts.filter(
+          (post) => post.id !== +action.payload.id
+        );
       });
   },
 });

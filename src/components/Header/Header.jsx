@@ -25,13 +25,16 @@ const Header = () => {
   return (
     <nav>
       <input onKeyUp={handleSearch} placeholder="🔎" type="text" name="text" />
-      <Link to={"/"}>Home</Link>
+      <Link to={"/"}> Home </Link>
       {user ? (
         <>
-          <button onClick={logoutRedirect}>Logout </button>
+          {user.role == "admin" && <Link to="/admin">Admin</Link>}
+          {/* //falta implementar el redirect mejorado - que haga un await a que
+          termine logout */}
           <span>
             <Link to={"/profile"}> Hola {user.name}! </Link>
           </span>
+          <button onClick={logoutRedirect}>Logout </button>
         </>
       ) : (
         <>

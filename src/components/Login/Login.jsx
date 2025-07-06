@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,16 @@ const Login = () => {
 
   const { email, password } = formData;
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth); // importar estado usuario
+
+  // Redirige si hay usuario
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]); //si el estado de user cambia
 
   const onChange = (e) => {
     setFormData({
@@ -31,7 +41,7 @@ const Login = () => {
         type="email"
         name="email"
         value={email}
-        placeholder="Name"
+        placeholder="Email"
         onChange={onChange}
       />
       <input
