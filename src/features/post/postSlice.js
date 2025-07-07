@@ -34,10 +34,23 @@ export const getPostByName = createAsyncThunk(
   }
 );
 
+export const deletePost = createAsyncThunk("post/deletePost", async (id) => {
+  try {
+    await postService.deletePost(id);
+    return { id };
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      state.isLoading = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAll.fulfilled, (state, action) => {
@@ -53,8 +66,15 @@ export const postSlice = createSlice({
       .addCase(getPostByName.fulfilled, (state, action) => {
         console.log(action.payload);
         state.posts = action.payload;
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.posts = state.posts.filter(
+          (post) => post.id !== +action.payload.id
+        );
       });
   },
 });
 
+export const { reset } = postSlice.actions;
 export default postSlice.reducer;

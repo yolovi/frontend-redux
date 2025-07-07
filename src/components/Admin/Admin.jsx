@@ -1,7 +1,12 @@
 import React from "react";
+import AdminPost from "./AdminPost";
 
 const Admin = () => {
-  return <div>Admin</div>;
+  return (
+    <div>
+      <AdminPost />
+    </div>
+  );
 };
 
 export default Admin;

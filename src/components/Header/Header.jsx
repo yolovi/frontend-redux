@@ -28,10 +28,11 @@ const Header = () => {
       <Link to={"/"}>Home</Link>
       {user ? (
         <>
-          <button onClick={logoutRedirect}>Logout </button>
+          {user.role == "admin" && <Link to={"/admin"}> Admin </Link>}
           <span>
             <Link to={"/profile"}> Hola {user.name}! </Link>
           </span>
+          <button onClick={logoutRedirect}>Logout </button>
         </>
       ) : (
         <>
