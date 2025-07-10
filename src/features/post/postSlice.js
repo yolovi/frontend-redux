@@ -64,14 +64,10 @@ export const postSlice = createSlice({
         state.post = action.payload;
       })
       .addCase(getPostByName.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.posts = action.payload;
-      })
-      .addCase(deletePost.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.posts = state.posts.filter(
-          (post) => post.id !== +action.payload.id
-        );
+        // SOLUCIÓN --> Si la búsqueda devuelve un solo post, lo guardamos como array
+        state.posts = Array.isArray(action.payload) //SI es un array
+          ? action.payload //guarda el array
+          : [action.payload]; // si no lo es --> Envuelve el objeto en un array
       });
   },
 });
